@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Comment</title>
+    <script
+        src="https://cdn.tailwindcss.com?plugins=forms,typography,aspect-ratio,line-clamp,container-queries"></script>
+    <script src="https://kit.fontawesome.com/5c85fd2f27.js" crossorigin="anonymous"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'Poppins': ['Poppins', 'sans-serif']
+                    },
+                    colors: {
+                        "blue": {
+                            250: "#5492dd",
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <section class="bg-white">
+        <div class="max-w-2xl px-4 py-8 mx-auto lg:py-16">
+            <h2 class="mb-4 text-xl font-bold text-gray-900">Update Note</h2>
+
+            <form action="{% url 'update_note' note.pk %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
+                    <div class="sm:col-span-2">
+                        <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Note Title</label>
+                        <input type="text" name="title" id="title"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                            value="{{ note.title }}" required>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label for="title" class="block mb-2 text-sm font-medium text-gray-900">Note Image</label>
+                        <img src="{{note.image.url}}" alt="" class="my-2">
+                        <input type="file" name="image" id="image"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5"
+                            placeholder="{{ notes.image.url }}" required>
+                    </div>
+                    <div class="sm:col-span-2">
+                        <label for="content" class="block mb-2 text-sm font-medium text-gray-900">Note Content</label>
+                        <textarea name="content" id="content"
+                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 h-40 resize-none"
+                            required>{{ note.content }}</textarea>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button type="submit"
+                        class="text-white bg-blue-500 border-2 border-blue-500 hover:bg-blue-700 hover:border-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center duration-300">
+                        Update Note
+                    </button>
+                    <a href="/" type="submit"
+                        class="border-2 text-blue-500 border-blue-500 bg-white hover:bg-blue-500 hover:text-white focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center duration-300">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </section>
+
+    <script>
+        if (window.history.replaceState) {
+            window.history.replaceState(null, null, window.location.href);
+        }
+    </script>
+</body>
+
+</html>
